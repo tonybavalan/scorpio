@@ -13,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bookings', function (Blueprint $table) {
+        Schema::create('trips', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('driver_id');
+            $table->json('pickup');
+            $table->json('destination');
             $table->timestamps();
-            $table->foreign('customer_id')
-            ->references('id')->on('customers')->onDelete('cascade');
-            $table->foreign('driver_id')
-            ->references('id')->on('drivers')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')
+                    ->on('customers')->onDelete('cascade');
+            $table->foreign('driver_id')->references('id')
+                    ->on('drivers')->onDelete('cascade');
         });
     }
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('trips');
     }
 };
