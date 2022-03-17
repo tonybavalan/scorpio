@@ -17,8 +17,9 @@ class Driver extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'name', 'drivername',
+        'email', 'phone_no', 
+        'location', 'latlng',
         'password',
     ];
 

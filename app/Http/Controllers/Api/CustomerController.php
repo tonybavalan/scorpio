@@ -15,6 +15,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
+        // return CustomerResource::collection(Customer::all());
         return Customer::all();
     }
 
@@ -26,7 +27,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Customer::create($request->all());
     }
 
     /**

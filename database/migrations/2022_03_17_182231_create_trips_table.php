@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('driver_id');
-            $table->json('pickup');
+            $table->string('pickup');
+            $table->json('source');
+            $table->string('drop');
             $table->json('destination');
             $table->timestamps();
             $table->foreign('customer_id')->references('id')
