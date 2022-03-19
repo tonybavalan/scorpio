@@ -22,10 +22,10 @@ return new class extends Migration
             $table->string('drop');
             $table->json('destination');
             $table->timestamps();
-            $table->foreign('customer_id')->references('id')
-                    ->on('customers')->onDelete('cascade');
-            $table->foreign('driver_id')->references('id')
-                    ->on('drivers')->onDelete('cascade');
+            // $table->foreign('customer_id')->references('id')
+            //         ->on('customers')->onDelete('cascade');
+            // $table->foreign('driver_id')->references('id')
+            //         ->on('drivers')->onDelete('cascade');
         });
     }
 

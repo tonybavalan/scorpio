@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('customername');
-            $table->string('phone_no');
+            $table->string('phone_no')->unique();
             $table->string('location');
             $table->json('latlng')->nullable();
             $table->string('email')->unique();

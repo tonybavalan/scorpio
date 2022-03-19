@@ -25,7 +25,7 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Trip::create($request->all());
     }
 
     /**

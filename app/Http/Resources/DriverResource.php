@@ -15,7 +15,7 @@ class DriverResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->displayname,
+            'name' => $this->drivername,
             'phone_no' => $this->phone_no,
             'email' => $this->email,
             'location' => $this->location
