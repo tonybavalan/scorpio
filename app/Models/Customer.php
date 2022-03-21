@@ -24,4 +24,22 @@ class Customer extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public const VALIDATION_RULES = [
+        'customername' => [
+            'required',
+            'string',
+            'max:255'
+        ],
+        'email' => [
+            'required',
+            'email',
+            'unique:customers,email'
+        ],
+        'phone_no' => [
+            'required',
+            'string',
+            'unique:customers,phone_no'
+        ]
+    ];
 }

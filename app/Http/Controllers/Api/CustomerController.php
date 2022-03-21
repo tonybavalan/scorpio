@@ -6,6 +6,8 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\CustomerResource;
 
 class CustomerController extends Controller
@@ -23,34 +25,23 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Requests\StoreUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $fields = $request->validate([
-            'name' => 'required|string',
-            'customername' => 'required|string',
-            'email' => 'required|string|unique:customers,email',
-            'phone_no' => 'required|string|unique:customers,phone_no',
-            'location' => 'required|string',
-            'password' => 'required|string|confirmed',
-        ]);
-
         $customer = Customer::create([
-            'name' => $fields['name'],
-            'customername' => $fields['customername'],
-            'email' => $fields['email'],
-            'phone_no' => $fields['phone_no'],
-            'location' => $fields['location'],
-            'password' => bcrypt($fields['password']),
+            'name' => $request->name,
+            'customername' => $request->customername,
+            'email' => $request->email,
+            'phone_no' => $request->phone_no,
+            'location' => $request->location,
+            'password' => bcrypt($request->password),
         ]);
-
-        $token = $customer->createToken('myapptoken')->plainTextToken;
 
         $response = [
+            'message' => "customer created successfully",
             'customer' => new CustomerResource($customer),
-            'token' => $token,
         ];
 
         return response($response, 201);
@@ -59,27 +50,22 @@ class CustomerController extends Controller
     /**
      * Login using resource & credentials.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Requests\LoginUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function login(LoginUserRequest $request)
     {
-        $fields = $request->validate([
-            'email' => 'required|string',
-            'password' => 'required|string',
-        ]);
-
         // Check Email
-        $customer = Customer::where('email', $fields['email'])->first();
+        $customer = Customer::where('email', $request->email)->first();
         
         // Check Password
-        if(!$customer || !Hash::check($fields['password'], $customer->password)) {
+        if(!$customer || !Hash::check($request->password, $customer->password)) {
             return response([
-                'message' => 'Bad creds',
+                'message' => 'Bad Credentials',
             ], 401);
         }
         
-        $token = $customer->createToken('myapptoken')->plainTextToken;
+        $token = $customer->createToken($customer->name)->plainTextToken;
 
         $response = [
             'customer' => new CustomerResource($customer),

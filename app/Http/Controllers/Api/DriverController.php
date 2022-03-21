@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\DriverResource;
+use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\StoreUserRequest;
 
 class DriverController extends Controller
 {
@@ -23,34 +25,23 @@ class DriverController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Requests\StoreUserRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $fields = $request->validate([
-            'name' => 'required|string',
-            'drivername' => 'required|string',
-            'email' => 'required|string|unique:drivers,email',
-            'phone_no' => 'required|string|unique:drivers,phone_no',
-            'location' => 'required|string',
-            'password' => 'required|string|confirmed',
-        ]);
-
         $driver = Driver::create([
-            'name' => $fields['name'],
-            'drivername' => $fields['drivername'],
-            'email' => $fields['email'],
-            'phone_no' => $fields['phone_no'],
-            'location' => $fields['location'],
-            'password' => bcrypt($fields['password']),
+            'name' => $request->name,
+            'drivername' => $request->drivername,
+            'email' => $request->email,
+            'phone_no' => $request->phone_no,
+            'location' => $request->location,
+            'password' => bcrypt($request->password),
         ]);
-
-        $token = $driver->createToken('myapptoken')->plainTextToken;
 
         $response = [
+            'message' => 'driver created successfully',
             'driver' => new DriverResource($driver),
-            'token' => $token,
         ];
 
         return response($response, 201);
@@ -59,27 +50,22 @@ class DriverController extends Controller
     /**
      * Login using resource & credentials.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Requests\LoginUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function login(LoginUserRequest $request)
     {
-        $fields = $request->validate([
-            'email' => 'required|string',
-            'password' => 'required|string',
-        ]);
-
         // Check Email
-        $driver = Driver::where('email', $fields['email'])->first();
+        $driver = Driver::where('email', $request->email)->first();
         
         // Check Password
-        if(!$driver || !Hash::check($fields['password'], $driver->password)) {
+        if(!$driver || !Hash::check($request->password, $driver->password)) {
             return response([
-                'message' => 'Bad creds',
+                'message' => 'Bad credentials',
             ], 401);
         }
         
-        $token = $driver->createToken('myapptoken')->plainTextToken;
+        $token = $driver->createToken($driver->name)->plainTextToken;
 
         $response = [
             'driver' => new DriverResource($driver),

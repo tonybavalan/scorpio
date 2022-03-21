@@ -24,4 +24,22 @@ class Driver extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public const VALIDATION_RULES = [
+        'drivername' => [
+            'required',
+            'string',
+            'max:255'
+        ],
+        'email' => [
+            'required',
+            'email',
+            'unique:drivers,email'
+        ],
+        'phone_no' => [
+            'required',
+            'string',
+            'unique:drivers,phone_no'
+        ]
+    ];
 }
