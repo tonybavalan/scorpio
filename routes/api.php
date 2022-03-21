@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\DriverController;
-use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\V1\DriverController;
+use App\Http\Controllers\Api\V1\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,23 +12,23 @@ use App\Http\Controllers\Api\CustomerController;
 */
 
 // Public Routes
-Route::any('customer/login', [CustomerController::class,'login']);
+Route::get('customer/login', [CustomerController::class,'login']);
 
-Route::any('driver/login', [DriverController::class,'login']);
+Route::get('driver/login', [DriverController::class,'login']);
 
-Route::apiResource('customer', CustomerController::class);
+Route::apiResource('customer', CustomerController::class)->only(['index', 'store']);
 
-Route::apiResource('driver', DriverController::class);
+Route::apiResource('driver', DriverController::class)->only(['index', 'store']);
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::prefix('customer')->group(function () {
-        Route::any('logout', [CustomerController::class, 'logout']);
+        Route::get('logout', [CustomerController::class, 'logout']);
     });
 
     Route::prefix('driver')->group(function () {
-        Route::any('logout', [DriverController::class, 'logout']);
+        Route::get('logout', [DriverController::class, 'logout']);
     });
 
     Route::apiResource('customer', CustomerController::class)->only(['show', 'destroy']);
