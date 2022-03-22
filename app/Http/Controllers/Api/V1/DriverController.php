@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\DriverResource;
 use App\Http\Requests\LoginUserRequest;
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\StoreDriverRequest;
 
 class DriverController extends Controller
 {
@@ -25,10 +25,10 @@ class DriverController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Requests\StoreUserRequest $request
+     * @param  \Illuminate\Http\Requests\StoreDriverRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreDriverRequest $request)
     {
         $driver = Driver::create([
             'name' => $request->name,

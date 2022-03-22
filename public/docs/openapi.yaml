@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 servers:
   -
-    url: 'http://localhost'
+    url: 'http://projectscorpio.ml'
 paths:
   /api/customer:
     get:
@@ -85,17 +85,32 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: adipisci
+                  example: voluptas
+                customername:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: qvkhlemfirdcbtmbsigubcgljbnhsidnujegufwntfwhqgmgyiuwjivdcnjjzlvpaiwzfnwkybcheampjxloh
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: tremblay.lawrence@example.org
+                phone_no:
+                  type: string
+                  description: ''
+                  example: eum
                 location:
                   type: string
                   description: ''
-                  example: sit
+                  example: cumque
                 password:
                   type: string
                   description: ''
-                  example: itaque
+                  example: possimus
               required:
                 - name
+                - customername
+                - email
+                - phone_no
                 - location
                 - password
       security: []
@@ -243,17 +258,32 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: sed
+                  example: dolor
+                drivername:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: edzndtiqajovtlntwtxldmavpaowjrwwvhtnsobrzezfxltqvijfhqmfoyaznjcctzcbgcrptitjeds
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: bruen.damien@example.com
+                phone_no:
+                  type: string
+                  description: ''
+                  example: aspernatur
                 location:
                   type: string
                   description: ''
-                  example: error
+                  example: doloribus
                 password:
                   type: string
                   description: ''
-                  example: quia
+                  example: et
               required:
                 - name
+                - drivername
+                - email
+                - phone_no
                 - location
                 - password
       security: []
@@ -367,11 +397,11 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: xbrekke@example.com
+                  example: jkautzer@example.com
                 password:
                   type: string
                   description: ''
-                  example: voluptatem
+                  example: a
               required:
                 - email
                 - password
@@ -420,11 +450,11 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: warren04@example.org
+                  example: treutel.laurianne@example.org
                 password:
                   type: string
                   description: ''
-                  example: sint
+                  example: eaque
               required:
                 - email
                 - password

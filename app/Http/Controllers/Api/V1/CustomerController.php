@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginUserRequest;
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Resources\CustomerResource;
 
 class CustomerController extends Controller
@@ -25,10 +25,10 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Requests\StoreUserRequest  $request
+     * @param  \Illuminate\Http\Requests\StoreCustomerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreCustomerRequest $request)
     {
         $customer = Customer::create([
             'name' => $request->name,

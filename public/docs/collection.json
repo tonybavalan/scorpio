@@ -5,12 +5,12 @@
             "key": "baseUrl",
             "type": "string",
             "name": "string",
-            "value": "http:\/\/localhost"
+            "value": "http:\/\/projectscorpio.ml"
         }
     ],
     "info": {
         "name": "Scorpio",
-        "_postman_id": "c3277312-07dd-4e19-8fcf-0b29850e2fc6",
+        "_postman_id": "7b634194-34d0-4ca3-a5c8-c35712521cbc",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -97,7 +97,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"adipisci\",\"location\":\"sit\",\"password\":\"itaque\"}"
+                            "raw": "{\"name\":\"voluptas\",\"customername\":\"qvkhlemfirdcbtmbsigubcgljbnhsidnujegufwntfwhqgmgyiuwjivdcnjjzlvpaiwzfnwkybcheampjxloh\",\"email\":\"tremblay.lawrence@example.org\",\"phone_no\":\"eum\",\"location\":\"cumque\",\"password\":\"possimus\"}"
                         },
                         "description": "",
                         "auth": {
@@ -276,7 +276,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"sed\",\"location\":\"error\",\"password\":\"quia\"}"
+                            "raw": "{\"name\":\"dolor\",\"drivername\":\"edzndtiqajovtlntwtxldmavpaowjrwwvhtnsobrzezfxltqvijfhqmfoyaznjcctzcbgcrptitjeds\",\"email\":\"bruen.damien@example.com\",\"phone_no\":\"aspernatur\",\"location\":\"doloribus\",\"password\":\"et\"}"
                         },
                         "description": "",
                         "auth": {
@@ -399,7 +399,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"xbrekke@example.com\",\"password\":\"voluptatem\"}"
+                            "raw": "{\"email\":\"jkautzer@example.com\",\"password\":\"a\"}"
                         },
                         "description": "",
                         "auth": {
@@ -458,7 +458,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"warren04@example.org\",\"password\":\"sint\"}"
+                            "raw": "{\"email\":\"treutel.laurianne@example.org\",\"password\":\"eaque\"}"
                         },
                         "description": "",
                         "auth": {

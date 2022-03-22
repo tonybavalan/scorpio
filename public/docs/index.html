@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Scorpio Documentation</title>
 
-    <!-- Icon -->
-    <link rel="icon" href="img/scorpio.ico" type="image/x-icon">
-
     <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../docs/css/theme-default.style.css" media="screen">
@@ -29,7 +26,7 @@
             </style>
 
     <script>
-        var baseUrl = "http://localhost";
+        var baseUrl = "http://projectscorpio.ml";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -125,7 +122,7 @@
                             <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
                     </ul>
         <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 21 2022</li>
+        <li>Last updated: March 22 2022</li>
     </ul>
 </div>
 
@@ -139,7 +136,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 <blockquote>
 <p>Base URL</p>
 </blockquote>
-<pre><code class="language-yaml">http://localhost</code></pre>
+<pre><code class="language-yaml">http://projectscorpio.ml</code></pre>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
 <p>This API is not authenticated.</p>
@@ -161,14 +158,14 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/customer" \
+    --get "http://projectscorpio.ml/api/customer" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/customer"
+    "http://projectscorpio.ml/api/customer"
 );
 
 const headers = {
@@ -265,20 +262,23 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/customer" \
+    "http://projectscorpio.ml/api/customer" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"adipisci\",
-    \"location\": \"sit\",
-    \"password\": \"itaque\"
+    \"name\": \"voluptas\",
+    \"customername\": \"qvkhlemfirdcbtmbsigubcgljbnhsidnujegufwntfwhqgmgyiuwjivdcnjjzlvpaiwzfnwkybcheampjxloh\",
+    \"email\": \"tremblay.lawrence@example.org\",
+    \"phone_no\": \"eum\",
+    \"location\": \"cumque\",
+    \"password\": \"possimus\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/customer"
+    "http://projectscorpio.ml/api/customer"
 );
 
 const headers = {
@@ -287,9 +287,12 @@ const headers = {
 };
 
 let body = {
-    "name": "adipisci",
-    "location": "sit",
-    "password": "itaque"
+    "name": "voluptas",
+    "customername": "qvkhlemfirdcbtmbsigubcgljbnhsidnujegufwntfwhqgmgyiuwjivdcnjjzlvpaiwzfnwkybcheampjxloh",
+    "email": "tremblay.lawrence@example.org",
+    "phone_no": "eum",
+    "location": "cumque",
+    "password": "possimus"
 };
 
 fetch(url, {
@@ -347,7 +350,37 @@ fetch(url, {
                 <input type="text"
                name="name"
                data-endpoint="POSTapi-customer"
-               value="adipisci"
+               value="voluptas"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>customername</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="customername"
+               data-endpoint="POSTapi-customer"
+               value="qvkhlemfirdcbtmbsigubcgljbnhsidnujegufwntfwhqgmgyiuwjivdcnjjzlvpaiwzfnwkybcheampjxloh"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="email"
+               data-endpoint="POSTapi-customer"
+               value="tremblay.lawrence@example.org"
+               data-component="body" hidden>
+    <br>
+<p>Must be a valid email address.</p>
+        </p>
+                <p>
+            <b><code>phone_no</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="phone_no"
+               data-endpoint="POSTapi-customer"
+               value="eum"
                data-component="body" hidden>
     <br>
 
@@ -357,7 +390,7 @@ fetch(url, {
                 <input type="text"
                name="location"
                data-endpoint="POSTapi-customer"
-               value="sit"
+               value="cumque"
                data-component="body" hidden>
     <br>
 
@@ -367,7 +400,7 @@ fetch(url, {
                 <input type="text"
                name="password"
                data-endpoint="POSTapi-customer"
-               value="itaque"
+               value="possimus"
                data-component="body" hidden>
     <br>
 
@@ -387,14 +420,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/customer/1" \
+    --get "http://projectscorpio.ml/api/customer/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/customer/1"
+    "http://projectscorpio.ml/api/customer/1"
 );
 
 const headers = {
@@ -493,14 +526,14 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/customer/1" \
+    "http://projectscorpio.ml/api/customer/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/customer/1"
+    "http://projectscorpio.ml/api/customer/1"
 );
 
 const headers = {
@@ -582,14 +615,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/driver" \
+    --get "http://projectscorpio.ml/api/driver" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/driver"
+    "http://projectscorpio.ml/api/driver"
 );
 
 const headers = {
@@ -686,20 +719,23 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/driver" \
+    "http://projectscorpio.ml/api/driver" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"sed\",
-    \"location\": \"error\",
-    \"password\": \"quia\"
+    \"name\": \"dolor\",
+    \"drivername\": \"edzndtiqajovtlntwtxldmavpaowjrwwvhtnsobrzezfxltqvijfhqmfoyaznjcctzcbgcrptitjeds\",
+    \"email\": \"bruen.damien@example.com\",
+    \"phone_no\": \"aspernatur\",
+    \"location\": \"doloribus\",
+    \"password\": \"et\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/driver"
+    "http://projectscorpio.ml/api/driver"
 );
 
 const headers = {
@@ -708,9 +744,12 @@ const headers = {
 };
 
 let body = {
-    "name": "sed",
-    "location": "error",
-    "password": "quia"
+    "name": "dolor",
+    "drivername": "edzndtiqajovtlntwtxldmavpaowjrwwvhtnsobrzezfxltqvijfhqmfoyaznjcctzcbgcrptitjeds",
+    "email": "bruen.damien@example.com",
+    "phone_no": "aspernatur",
+    "location": "doloribus",
+    "password": "et"
 };
 
 fetch(url, {
@@ -768,7 +807,37 @@ fetch(url, {
                 <input type="text"
                name="name"
                data-endpoint="POSTapi-driver"
-               value="sed"
+               value="dolor"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>drivername</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="drivername"
+               data-endpoint="POSTapi-driver"
+               value="edzndtiqajovtlntwtxldmavpaowjrwwvhtnsobrzezfxltqvijfhqmfoyaznjcctzcbgcrptitjeds"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="email"
+               data-endpoint="POSTapi-driver"
+               value="bruen.damien@example.com"
+               data-component="body" hidden>
+    <br>
+<p>Must be a valid email address.</p>
+        </p>
+                <p>
+            <b><code>phone_no</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="phone_no"
+               data-endpoint="POSTapi-driver"
+               value="aspernatur"
                data-component="body" hidden>
     <br>
 
@@ -778,7 +847,7 @@ fetch(url, {
                 <input type="text"
                name="location"
                data-endpoint="POSTapi-driver"
-               value="error"
+               value="doloribus"
                data-component="body" hidden>
     <br>
 
@@ -788,7 +857,7 @@ fetch(url, {
                 <input type="text"
                name="password"
                data-endpoint="POSTapi-driver"
-               value="quia"
+               value="et"
                data-component="body" hidden>
     <br>
 
@@ -808,14 +877,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/driver/1" \
+    --get "http://projectscorpio.ml/api/driver/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/driver/1"
+    "http://projectscorpio.ml/api/driver/1"
 );
 
 const headers = {
@@ -914,14 +983,14 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/driver/1" \
+    "http://projectscorpio.ml/api/driver/1" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/driver/1"
+    "http://projectscorpio.ml/api/driver/1"
 );
 
 const headers = {
@@ -1003,19 +1072,19 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/customer/login" \
+    --get "http://projectscorpio.ml/api/customer/login" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"xbrekke@example.com\",
-    \"password\": \"voluptatem\"
+    \"email\": \"jkautzer@example.com\",
+    \"password\": \"a\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/customer/login"
+    "http://projectscorpio.ml/api/customer/login"
 );
 
 const headers = {
@@ -1024,8 +1093,8 @@ const headers = {
 };
 
 let body = {
-    "email": "xbrekke@example.com",
-    "password": "voluptatem"
+    "email": "jkautzer@example.com",
+    "password": "a"
 };
 
 fetch(url, {
@@ -1102,7 +1171,7 @@ access-control-allow-origin: *
                 <input type="text"
                name="email"
                data-endpoint="GETapi-customer-login"
-               value="xbrekke@example.com"
+               value="jkautzer@example.com"
                data-component="body" hidden>
     <br>
 <p>Must be a valid email address.</p>
@@ -1112,7 +1181,7 @@ access-control-allow-origin: *
                 <input type="text"
                name="password"
                data-endpoint="GETapi-customer-login"
-               value="voluptatem"
+               value="a"
                data-component="body" hidden>
     <br>
 
@@ -1132,19 +1201,19 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/driver/login" \
+    --get "http://projectscorpio.ml/api/driver/login" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"warren04@example.org\",
-    \"password\": \"sint\"
+    \"email\": \"treutel.laurianne@example.org\",
+    \"password\": \"eaque\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/driver/login"
+    "http://projectscorpio.ml/api/driver/login"
 );
 
 const headers = {
@@ -1153,8 +1222,8 @@ const headers = {
 };
 
 let body = {
-    "email": "warren04@example.org",
-    "password": "sint"
+    "email": "treutel.laurianne@example.org",
+    "password": "eaque"
 };
 
 fetch(url, {
@@ -1231,7 +1300,7 @@ access-control-allow-origin: *
                 <input type="text"
                name="email"
                data-endpoint="GETapi-driver-login"
-               value="warren04@example.org"
+               value="treutel.laurianne@example.org"
                data-component="body" hidden>
     <br>
 <p>Must be a valid email address.</p>
@@ -1241,7 +1310,7 @@ access-control-allow-origin: *
                 <input type="text"
                name="password"
                data-endpoint="GETapi-driver-login"
-               value="sint"
+               value="eaque"
                data-component="body" hidden>
     <br>
 
@@ -1261,14 +1330,14 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/customer/logout" \
+    --get "http://projectscorpio.ml/api/customer/logout" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/customer/logout"
+    "http://projectscorpio.ml/api/customer/logout"
 );
 
 const headers = {
@@ -1356,14 +1425,14 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/driver/logout" \
+    --get "http://projectscorpio.ml/api/driver/logout" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/driver/logout"
+    "http://projectscorpio.ml/api/driver/logout"
 );
 
 const headers = {

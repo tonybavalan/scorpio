@@ -49,21 +49,42 @@ endpoints:
         name: name
         description: ''
         required: true
-        example: adipisci
+        example: voluptas
+        type: string
+        custom: []
+      customername:
+        name: customername
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: qvkhlemfirdcbtmbsigubcgljbnhsidnujegufwntfwhqgmgyiuwjivdcnjjzlvpaiwzfnwkybcheampjxloh
+        type: string
+        custom: []
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: tremblay.lawrence@example.org
+        type: string
+        custom: []
+      phone_no:
+        name: phone_no
+        description: ''
+        required: true
+        example: eum
         type: string
         custom: []
       location:
         name: location
         description: ''
         required: true
-        example: sit
+        example: cumque
         type: string
         custom: []
       password:
         name: password
         description: ''
         required: true
-        example: itaque
+        example: possimus
         type: string
         custom: []
     responses: []
@@ -170,21 +191,42 @@ endpoints:
         name: name
         description: ''
         required: true
-        example: sed
+        example: dolor
+        type: string
+        custom: []
+      drivername:
+        name: drivername
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: edzndtiqajovtlntwtxldmavpaowjrwwvhtnsobrzezfxltqvijfhqmfoyaznjcctzcbgcrptitjeds
+        type: string
+        custom: []
+      email:
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: bruen.damien@example.com
+        type: string
+        custom: []
+      phone_no:
+        name: phone_no
+        description: ''
+        required: true
+        example: aspernatur
         type: string
         custom: []
       location:
         name: location
         description: ''
         required: true
-        example: error
+        example: doloribus
         type: string
         custom: []
       password:
         name: password
         description: ''
         required: true
-        example: quia
+        example: et
         type: string
         custom: []
     responses: []
@@ -264,14 +306,14 @@ endpoints:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: xbrekke@example.com
+        example: jkautzer@example.com
         type: string
         custom: []
       password:
         name: password
         description: ''
         required: true
-        example: voluptatem
+        example: a
         type: string
         custom: []
     responses:
@@ -305,14 +347,14 @@ endpoints:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: warren04@example.org
+        example: treutel.laurianne@example.org
         type: string
         custom: []
       password:
         name: password
         description: ''
         required: true
-        example: sint
+        example: eaque
         type: string
         custom: []
     responses:
