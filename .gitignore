@@ -13,3 +13,10 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+.scribe/.filehashes
+.scribe/.filehashes
+.scribe/intro.md
+.scribe/endpoints/00.yaml
+public/docs/collection.json
+public/docs/index.html
+public/docs/openapi.yaml
