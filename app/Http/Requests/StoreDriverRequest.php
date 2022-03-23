@@ -24,11 +24,12 @@ class StoreDriverRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required|string|max:50',
             'email' => 'required|email|unique:drivers,email',
-            'phone_no' => 'required|string|unique:drivers,phone_no',
+            'phone_no' => 'required|regex:/(01)[0-9]{9}/|unique:drivers,phone_no',
             'location' => 'required|string',
             'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => '',
         ];
     }
 
@@ -36,16 +37,19 @@ class StoreDriverRequest extends FormRequest
     {
         return [
             'name' => [
-                'description' => 'The name of the driver',
+                'description' => 'Name of the driver',
             ],
             'email' => [
-                'description' => 'The email of the driver',
+                'description' => 'Email of the driver',
             ],
             'phone_no' => [
-                'description' => 'The phone_no of the driver',
+                'description' => 'Phone number of the driver',
             ],
             'password' => [
-                'description' => 'The password of the driver',
+                'description' => 'Password for the driver',
+            ],
+            'password_confirmation' => [
+                'description' => 'Repeat password for the driver',
             ],
         ];
     }

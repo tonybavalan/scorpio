@@ -24,10 +24,11 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required|string|max:50',
             'email' => 'required|email|unique:users,email',
-            'phone_no' => 'required|string|unique:users,phone_no',
+            'phone_no' => 'required|regex:/(01)[0-9]{9}/|unique:users,phone_no',
             'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => '',
         ];
     }
 
@@ -35,16 +36,19 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => [
-                'description' => 'The name of the user',
+                'description' => 'Name of the user',
             ],
             'email' => [
-                'description' => 'The email of the user',
+                'description' => 'Email of the user',
             ],
             'phone_no' => [
-                'description' => 'The phone_no of the user',
+                'description' => 'Phone number of the user',
             ],
             'password' => [
-                'description' => 'The password of the user',
+                'description' => 'Password for the user',
+            ],
+            'password_confimation' => [
+                'description' => 'Repeat password for the user',
             ],
         ];
     }
