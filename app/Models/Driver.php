@@ -14,7 +14,7 @@ class Driver extends Authenticatable
     protected $guard = 'driver';
 
     protected $fillable = [
-        'name', 'drivername', 'email', 'phone_no', 'location', 'latlng', 'password',
+        'name', 'uid', 'email', 'phone_no', 'location', 'latlng', 'password',
     ];
 
     protected $hidden = [

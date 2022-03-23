@@ -32,7 +32,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::create([
             'name' => $request->name,
-            'customername' => $request->customername,
+            'uid' => $this->createUid(),
             'email' => $request->email,
             'phone_no' => $request->phone_no,
             'location' => $request->location,

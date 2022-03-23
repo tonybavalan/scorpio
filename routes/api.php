@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\TripController;
 use App\Http\Controllers\Api\V1\DriverController;
 use App\Http\Controllers\Api\V1\CustomerController;
 
@@ -12,13 +13,15 @@ use App\Http\Controllers\Api\V1\CustomerController;
 */
 
 // Public Routes
-Route::get('customer/login', [CustomerController::class,'login']);
+Route::post('customer/login', [CustomerController::class,'login']);
 
-Route::get('driver/login', [DriverController::class,'login']);
+Route::post('driver/login', [DriverController::class,'login']);
 
 Route::apiResource('customer', CustomerController::class)->only(['index', 'store']);
 
 Route::apiResource('driver', DriverController::class)->only(['index', 'store']);
+
+Route::apiResource('trip', TripController::class);
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {

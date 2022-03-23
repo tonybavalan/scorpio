@@ -32,7 +32,7 @@ class DriverController extends Controller
     {
         $driver = Driver::create([
             'name' => $request->name,
-            'drivername' => $request->drivername,
+            'uid' => $this->createUid(),
             'email' => $request->email,
             'phone_no' => $request->phone_no,
             'location' => $request->location,

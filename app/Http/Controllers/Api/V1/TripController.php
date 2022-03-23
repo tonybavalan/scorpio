@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Models\Trip;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\TripResource;
 
 class TripController extends Controller
 {
@@ -25,7 +27,22 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
-        return Trip::create($request->all());
+        // dd($request);
+        $trip = new Trip;
+
+        $trip->customer_id = $request->customer_id;
+        $trip->pickup = $request->pickup;
+        $trip->source = json_encode($request->source);
+        $trip->drop = $request->drop;
+        $trip->destination = json_encode($request->destination);
+        $trip->save();
+
+        $response = [
+            'message' => 'trip created successfully',
+            'trip' => new TripResource($trip),
+        ];
+
+        return response($response, 201);
     }
 
     /**

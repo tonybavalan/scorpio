@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('drivername');
+            $table->string('uid',8)->unique();
             $table->string('phone_no')->unique();
             $table->string('location');
             $table->json('latlng')->nullable();
