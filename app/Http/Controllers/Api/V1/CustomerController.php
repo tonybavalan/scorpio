@@ -13,7 +13,7 @@ use App\Http\Resources\CustomerResource;
 class CustomerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the customer resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -23,8 +23,8 @@ class CustomerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
+     * Store a newly created customer resource in storage.
+     * 
      * @param  \Illuminate\Http\Requests\StoreCustomerRequest  $request
      * @return \Illuminate\Http\Response
      */
@@ -48,7 +48,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * Login using resource & credentials.
+     * Login using customer resource & credentials.
      *
      * @param  \Illuminate\Http\Requests\LoginUserRequest  $request
      * @return \Illuminate\Http\Response
@@ -76,7 +76,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * Logout using credentials.
+     * Logout as customer resource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

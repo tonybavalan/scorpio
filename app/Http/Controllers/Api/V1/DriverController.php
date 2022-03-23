@@ -13,7 +13,7 @@ use App\Http\Requests\StoreDriverRequest;
 class DriverController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Driver resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -23,8 +23,8 @@ class DriverController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
+     * Store a newly created Driver resource in storage.
+     * 
      * @param  \Illuminate\Http\Requests\StoreDriverRequest $request
      * @return \Illuminate\Http\Response
      */
@@ -48,8 +48,8 @@ class DriverController extends Controller
     }
 
     /**
-     * Login using resource & credentials.
-     *
+     * Login using Driver resource & credentials.
+     * 
      * @param  \Illuminate\Http\Requests\LoginUserRequest  $request
      * @return \Illuminate\Http\Response
      */
@@ -76,7 +76,7 @@ class DriverController extends Controller
     }
 
     /**
-     * Logout using credentials.
+     * Logout as Driver resource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

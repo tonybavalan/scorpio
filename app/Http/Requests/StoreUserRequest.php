@@ -25,9 +25,27 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email|unique:drivers,email',
-            'phone_no' => 'required|string|unique:drivers,phone_no',
+            'email' => 'required|email|unique:users,email',
+            'phone_no' => 'required|string|unique:users,phone_no',
             'password' => 'required|string|confirmed',
+        ];
+    }
+
+    public function bodyParameters()
+    {
+        return [
+            'name' => [
+                'description' => 'The name of the user',
+            ],
+            'email' => [
+                'description' => 'The email of the user',
+            ],
+            'phone_no' => [
+                'description' => 'The phone_no of the user',
+            ],
+            'password' => [
+                'description' => 'The password of the user',
+            ],
         ];
     }
 }

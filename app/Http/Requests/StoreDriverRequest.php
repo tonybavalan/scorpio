@@ -25,10 +25,28 @@ class StoreDriverRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email|unique:drivers,email',
+            'email' => 'required|email|min:6|unique:drivers,email',
             'phone_no' => 'required|string|unique:drivers,phone_no',
             'location' => 'required|string',
             'password' => 'required|string|confirmed',
+        ];
+    }
+
+    public function bodyParameters()
+    {
+        return [
+            'name' => [
+                'description' => 'The name of the driver',
+            ],
+            'email' => [
+                'description' => 'The email of the driver',
+            ],
+            'phone_no' => [
+                'description' => 'The phone_no of the driver',
+            ],
+            'password' => [
+                'description' => 'The password of the driver',
+            ],
         ];
     }
 }
