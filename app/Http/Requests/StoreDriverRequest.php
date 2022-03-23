@@ -25,10 +25,10 @@ class StoreDriverRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email|min:6|unique:drivers,email',
+            'email' => 'required|email|unique:drivers,email',
             'phone_no' => 'required|string|unique:drivers,phone_no',
             'location' => 'required|string',
-            'password' => 'required|string|confirmed',
+            'password' => 'required|string|min:6|confirmed',
         ];
     }
 

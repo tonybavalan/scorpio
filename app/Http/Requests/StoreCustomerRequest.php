@@ -25,10 +25,10 @@ class StoreCustomerRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email|min:6|unique:customers,email',
+            'email' => 'required|email|unique:customers,email',
             'phone_no' => 'required|string|unique:customers,phone_no',
             'location' => 'required|string',
-            'password' => 'required|string|confirmed',
+            'password' => 'required|string|min:6|confirmed',
         ];
     }
 
