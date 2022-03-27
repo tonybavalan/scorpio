@@ -43,10 +43,15 @@ class StoreDriverRequest extends FormRequest
                 'description' => 'Email of the driver',
             ],
             'phone_no' => [
-                'description' => 'Phone number of the driver',
+                'description' => 'Phone number of the driver with country code',
+            ],
+            'location' => [
+                'description' => 'Current city with state & country of the customer',
+                'example' => 'Chennai, TamilNadu, India'
             ],
             'password' => [
                 'description' => 'Password for the driver',
+                'example' => 'secret'
             ],
             'password_confirmation' => [
                 'description' => 'Repeat password for the driver',

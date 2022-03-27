@@ -27,7 +27,6 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $trip = new Trip;
 
         $trip->customer_id = $request->customer_id;

@@ -31,8 +31,8 @@ class DriverController extends Controller
     public function store(StoreDriverRequest $request)
     {
         $driver = Driver::create([
-            'name' => $request->name,
             'uid' => $this->createUid(),
+            'name' => $request->name,
             'email' => $request->email,
             'phone_no' => $request->phone_no,
             'location' => $request->location,

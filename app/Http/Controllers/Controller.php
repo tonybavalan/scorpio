@@ -32,6 +32,21 @@ class Controller extends BaseController
     {
         $response = Http::timeout(5)->get('https://api.tomtom.com/search/2/geocode/'.$query.'.json?storeResult=false&typeahead=true&countrySet=IN&view=IN&key=NLv6kmsraNtNKpaoqqBHK6e3GZYFozJz');
 
-        dd($response->body());
+        return $response->body();
+    }
+
+    /**
+    * success response method.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function sendResponse($result, $message)
+    {
+        $response = [
+            'success' => true,
+            'message' => $message,
+            'data'    => $result,
+        ];
+        return response()->json($response, 200);
     }
 }

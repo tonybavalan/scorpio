@@ -43,10 +43,15 @@ class StoreCustomerRequest extends FormRequest
                 'description' => 'Email of the customer',
             ],
             'phone_no' => [
-                'description' => 'Phone number of the customer',
+                'description' => 'Phone number of the customer with country code',
+            ],
+            'location' => [
+                'description' => 'Current city with state & country of the customer',
+                'example' => 'Chennai, TamilNadu, India'
             ],
             'password' => [
                 'description' => 'Password for the customer',
+                'example' => 'secret'
             ],
             'password_confirmation' => [
                 'description' => 'Repeat password for the customer',
