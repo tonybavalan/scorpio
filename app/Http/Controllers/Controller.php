@@ -25,17 +25,6 @@ class Controller extends BaseController
     }
 
     /**
-     * Make request to tomtom geocoding API.
-     * 
-     */
-    public function geocoding($query)
-    {
-        $response = Http::timeout(5)->get('https://api.tomtom.com/search/2/geocode/'.$query.'.json?storeResult=false&typeahead=true&countrySet=IN&view=IN&key=NLv6kmsraNtNKpaoqqBHK6e3GZYFozJz');
-
-        return $response->body();
-    }
-
-    /**
     * success response method.
     *
     * @return \Illuminate\Http\Response

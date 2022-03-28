@@ -21,15 +21,11 @@ Route::apiResource('customer', CustomerController::class)->only(['index', 'store
 
 Route::apiResource('driver', DriverController::class)->only(['index', 'store']);
 
-Route::get('/map/{query}', function ($query) {
-    // $response = Http::timeout(5)->get('https://api.tomtom.com/search/2/geocode/'.$query.'.json?storeResult=false&typeahead=true&countrySet=IN&view=IN&key=NLv6kmsraNtNKpaoqqBHK6e3GZYFozJz');
-
-    $response = Http::get('https://api.tomtom.com/search/2/geocode/'.$query.'.json?storeResult=false&typeahead=true&countrySet=IN&view=IN&key=NLv6kmsraNtNKpaoqqBHK6e3GZYFozJz');
-
-    return response()->json($response->body());
-});
-
 Route::apiResource('trip', TripController::class);
+
+Route::get('/geocode/{query}', MapController::class, 'geocode');
+
+Route::get('/structgeocode/{query}', MapController::class, 'structGeocode');
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
