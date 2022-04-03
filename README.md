@@ -13,6 +13,13 @@ Scorpio is a web application with expressive, elegant and simple project that he
 
 Scorpio is accessible, powerful, and provides tools required for large, robust applications.
 
+## Scorpio API Documentation
+
+People can start testing the API's of scorpio by adding the /docs URI in their browser. The API documentation was created using [Scribe](https://github.com/knuckleswtf/scribe) by [Knuckles](https://github.com/knuckleswtf).
+
+## TomTom Maps
+
+It started with a simple idea: Make digital navigation accessible for everyone. Today, TomTom is the leading independent geolocation technology specialist. Our decades of driver insights go into everything we do – maps for automated driving, navigation software for top car brands, maps APIs for leading tech companies and traffic data for all. Checkout [TomTom](https://www.tomtom.com/en_us/).
 ## Made out of Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
@@ -21,7 +28,7 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Scorpio, please send an e-mail to Tony Bavalan via [tonybavalan@wowtruck.in](mailto:tonybavalan@wowtruck.in). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within Scorpio, please send an e-mail to Tony Bavalan via [tonybavalan@wowtruck.in](mailto:tonybavalan@projectscorpio.ml). All security vulnerabilities will be promptly addressed.
 
 ## License
 
