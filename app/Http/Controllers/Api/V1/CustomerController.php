@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\LoginUserRequest;
-use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Resources\CustomerResource;
+use App\Http\Controllers\Api\MapController;
+use App\Http\Requests\StoreCustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -30,12 +31,15 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
+        $mapCode = (new MapController())->geocoding($request->location);
+
         $customer = Customer::create([
             'name' => $request->name,
             'uid' => $this->createUid(),
             'email' => $request->email,
             'phone_no' => $request->phone_no,
-            'location' => $request->location,
+            'location' => $mapCode['address'],
+            'latlng' => $mapCode['position'],
             'password' => bcrypt($request->password),
         ]);
 

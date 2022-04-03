@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\MapController;
 use App\Http\Controllers\Api\V1\TripController;
 use App\Http\Controllers\Api\V1\DriverController;
 use App\Http\Controllers\Api\V1\CustomerController;
@@ -23,9 +24,9 @@ Route::apiResource('driver', DriverController::class)->only(['index', 'store']);
 
 Route::apiResource('trip', TripController::class);
 
-Route::get('/geocode/{query}', MapController::class, 'geocode');
+Route::get('geocode/{query}', [MapController::class, 'geocoding']);
 
-Route::get('/structgeocode/{query}', MapController::class, 'structGeocode');
+Route::get('structgeocode/{query}', [MapController::class, 'structGeocoding']);
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {

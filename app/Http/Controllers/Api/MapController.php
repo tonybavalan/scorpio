@@ -4,29 +4,49 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class MapController extends Controller
 {
     /**
-     * Make request to tomtom geocoding API.
+     * Constructor for MapController.
+     * 
+     */   
+    public function __construct()
+    {
+        $this->map_key = env('MAP_KEY');
+    }
+
+    /**
+     * Make request to tomtom's geocoding API.
      * 
      */
     public function geocoding($query)
-    {
-        $response = Http::get('https://api.tomtom.com/search/2/geocode/'.$query.'.json?storeResult=false&typeahead=true&countrySet=IN&view=IN&key=NLv6kmsraNtNKpaoqqBHK6e3GZYFozJz');
+    {        
+        $results = Http::acceptJson()->get('https://api.tomtom.com/search/2/geocode/'.$query.'.json?storeResult=false&typeahead=true&countrySet=IN&view=IN&key='.$this->map_key)
+                    ['results']
+                    [0];
 
-        return $response->body();
+        $response['address'] = $results['address']['freeformAddress'];
+
+        $response['position'] = $results['position'];
+
+        return $response;
     }
 
      /**
-     * Make request to tomtom geocoding API.
+     * Make request to tomtom's structuredGeocoding API.
      * 
      */
     public function structGeocoding($query)
     {
-        $response = Http::get('https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=IN&municipality=uthangudi&municipalitySubdivision=Madurai&countrySecondarySubdivision=India&countrySubdivision=Tamilnadu&view=IN&key=NLv6kmsraNtNKpaoqqBHK6e3GZYFozJz');
+        $results = Http::acceptJson()->get('https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=IN&municipality=uthangudi&municipalitySubdivision=Madurai&countrySecondarySubdivision=India&countrySubdivision=Tamilnadu&view=IN&key='.$this->map_key);
 
-        return $response->body();
+        $response['address'] = $results['address']['freeformAddress'];
+
+        $response['position'] = $results['position'];
+
+        return $response;
     }
 
 }
