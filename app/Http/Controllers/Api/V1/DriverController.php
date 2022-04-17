@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\DriverResource;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreDriverRequest;
+use App\Http\Controllers\Api\MapController;
 
 class DriverController extends Controller
 {
@@ -16,6 +17,7 @@ class DriverController extends Controller
      * Display a listing of the Driver resource.
      *
      * @return \Illuminate\Http\Response
+     * @group Driver Endpoints
      */
     public function index()
     {
@@ -27,15 +29,19 @@ class DriverController extends Controller
      * 
      * @param  \Illuminate\Http\Requests\StoreDriverRequest $request
      * @return \Illuminate\Http\Response
+     * @group Driver Endpoints
      */
     public function store(StoreDriverRequest $request)
     {
+        $mapCode = (new MapController())->geocoding($request->location);
+        
         $driver = Driver::create([
-            'uid' => $this->createUid(),
             'name' => $request->name,
+            'uid' => $this->createUid(),
             'email' => $request->email,
             'phone_no' => $request->phone_no,
-            'location' => $request->location,
+            'location' => $mapCode['address'],
+            'latlng' => json_encode($mapCode['position']),
             'password' => bcrypt($request->password),
         ]);
 
@@ -52,6 +58,7 @@ class DriverController extends Controller
      * 
      * @param  \Illuminate\Http\Requests\LoginUserRequest  $request
      * @return \Illuminate\Http\Response
+     * @group Driver Endpoints
      */
     public function login(LoginUserRequest $request)
     {
@@ -80,10 +87,12 @@ class DriverController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * @group Driver Endpoints
+     * @authenticated
      */
     public function logout(Request $request)
     {
-        auth('driver')->user()->currentAccessToken()->delete();
+        $request->user()->currentAccessToken()->delete();
 
         return response([
             'message' => 'Driver logged out'

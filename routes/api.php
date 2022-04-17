@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MapController;
 use App\Http\Controllers\Api\V1\TripController;
@@ -22,8 +21,6 @@ Route::apiResource('customer', CustomerController::class)->only(['index', 'store
 
 Route::apiResource('driver', DriverController::class)->only(['index', 'store']);
 
-Route::apiResource('trip', TripController::class);
-
 Route::get('geocode/{query}', [MapController::class, 'geocoding']);
 
 Route::get('structgeocode/{query}', [MapController::class, 'structGeocoding']);
@@ -33,13 +30,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::prefix('customer')->group(function () {
         Route::get('logout', [CustomerController::class, 'logout']);
+        Route::post('trip', [TripController::class, 'store']);
     });
 
     Route::prefix('driver')->group(function () {
         Route::get('logout', [DriverController::class, 'logout']);
     });
 
-    Route::apiResource('customer', CustomerController::class)->only(['show', 'destroy']);
+    Route::get('trips', [TripController::class, 'show']);
 
-    Route::apiResource('driver', DriverController::class)->only(['show', 'destroy']);
+    // Route::apiResource('customer', CustomerController::class)->only(['show', 'destroy']);
+
+    // Route::apiResource('driver', DriverController::class)->only(['show', 'destroy']);
 });

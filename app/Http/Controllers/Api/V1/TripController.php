@@ -6,6 +6,8 @@ use App\Models\Trip;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TripResource;
+use App\Http\Requests\StoreTripRequest;
+use App\Http\Controllers\Api\MapController;
 
 class TripController extends Controller
 {
@@ -22,18 +24,28 @@ class TripController extends Controller
     /**
      * Store a newly created trip resource in storage.
      * 
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Requests\StoreTripRequest  $request
      * @return \Illuminate\Http\Response
+     * @authenticated
      */
-    public function store(Request $request)
+    public function store(StoreTripRequest $request)
     {
-        $trip = new Trip;
+        $pickup = (new MapController())->geocoding($request->pickup);
 
-        $trip->customer_id = $request->customer_id;
-        $trip->pickup = $request->pickup;
-        $trip->source = json_encode($request->source);
-        $trip->drop = $request->drop;
-        $trip->destination = json_encode($request->destination);
+        $drop = (new MapController())->geocoding($request->drop);
+
+        $trip = Trip::create([
+            'customer_id' => auth('customer')->user()->id,
+            'pickup' => $pickup['address'],
+            'source' => json_encode($pickup['position']),
+            'drop' => $drop['address'],
+            'destination' => json_encode($drop['position']),
+        ]);
+
+        $route = (new MapController())->routing(json_decode($trip->source), json_decode($trip->destination));
+
+        $trip->kilometers = $route['lengthInMeters']/1000;
+
         $trip->save();
 
         $response = [

@@ -33,6 +33,11 @@ class StoreCustomerRequest extends FormRequest
         ];
     }
 
+     /**
+     * Get the bodyParameters that apply to the request.
+     * 
+     * @return array
+     */
     public function bodyParameters()
     {
         return [

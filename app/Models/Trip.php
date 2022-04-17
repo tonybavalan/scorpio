@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Trip extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'customer_id', 'pickup', 'source','drop', 'destination', 'kilometers',
+    ];
 }

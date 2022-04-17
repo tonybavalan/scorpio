@@ -17,9 +17,7 @@ class TripResource extends JsonResource
         return [
             'id' => $this->id,
             'pickup' => $this->pickup,
-            'source' => $this->source,
             'drop' => $this->drop,
-            'destination' => $this->destination
         ];
     }
 }

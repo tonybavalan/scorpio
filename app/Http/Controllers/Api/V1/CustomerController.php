@@ -28,6 +28,7 @@ class CustomerController extends Controller
      * 
      * @param  \Illuminate\Http\Requests\StoreCustomerRequest  $request
      * @return \Illuminate\Http\Response
+     * @group Customer Endpoints
      */
     public function store(StoreCustomerRequest $request)
     {
@@ -39,7 +40,7 @@ class CustomerController extends Controller
             'email' => $request->email,
             'phone_no' => $request->phone_no,
             'location' => $mapCode['address'],
-            'latlng' => $mapCode['position'],
+            'latlng' => json_encode($mapCode['position']),
             'password' => bcrypt($request->password),
         ]);
 
@@ -56,6 +57,7 @@ class CustomerController extends Controller
      *
      * @param  \Illuminate\Http\Requests\LoginUserRequest  $request
      * @return \Illuminate\Http\Response
+     * @group Customer Endpoints
      */
     public function login(LoginUserRequest $request)
     {
@@ -84,6 +86,8 @@ class CustomerController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * @group Customer Endpoints
+     * @authenticated
      */
     public function logout(Request $request)
     {

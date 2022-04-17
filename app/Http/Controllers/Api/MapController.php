@@ -24,8 +24,7 @@ class MapController extends Controller
     public function geocoding($query)
     {        
         $results = Http::acceptJson()->get('https://api.tomtom.com/search/2/geocode/'.$query.'.json?storeResult=false&typeahead=true&countrySet=IN&view=IN&key='.$this->map_key)
-                    ['results']
-                    [0];
+                    ['results'][0];
 
         $response['address'] = $results['address']['freeformAddress'];
 
@@ -45,6 +44,22 @@ class MapController extends Controller
         $response['address'] = $results['address']['freeformAddress'];
 
         $response['position'] = $results['position'];
+
+        return $response;
+    }
+
+     /**
+     * Make request to tomtom's routing API.
+     * 
+     */
+    public function routing($pickup, $drop)
+    {
+        $results = Http::acceptJson()->get('https://api.tomtom.com/routing/1/calculateRoute/'.$pickup->lat.','.$pickup->lon.':'.$drop->lat.','.$drop->lon.'/json?key='.$this->map_key)
+                    ['routes'][0]['summary'];;
+
+        $response['lengthInMeters'] = $results['lengthInMeters'];
+
+        $response['travelTimeInSeconds'] = $results['travelTimeInSeconds'];
 
         return $response;
     }
