@@ -12,7 +12,7 @@ use App\Http\Controllers\Api\MapController;
 class TripController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all the trips resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -26,7 +26,7 @@ class TripController extends Controller
      * 
      * @param  \Illuminate\Http\Requests\StoreTripRequest  $request
      * @return \Illuminate\Http\Response
-     * @group User Endpoints
+     * @group Customer Endpoints
      * @authenticated
      */
     public function store(StoreTripRequest $request)

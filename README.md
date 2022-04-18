@@ -12,13 +12,19 @@ Scorpio is a web application with expressive, elegant and simple project that he
 
 Scorpio is accessible, powerful, and provides tools required for large, robust applications.
 
-## Scorpio API Documentation
+## Developer Documentation
 
 People can start testing the API's of scorpio by adding the /docs URI in their browser. The API documentations were created using [Scribe](https://github.com/knuckleswtf/scribe) by [Knuckles](https://github.com/knuckleswtf).
 
 ## TomTom Maps
 
 It started with a simple idea: Make digital navigation accessible for everyone. Today, TomTom is the leading independent geolocation technology specialist. Our decades of driver insights go into everything we do – maps for automated driving, navigation software for top car brands, maps APIs for leading tech companies and traffic data for all. Checkout [TomTom Maps](https://www.tomtom.com/en_us/).
+
+## Prerequisites
+
+- TomTom Maps APIKEY (Include it in .env. Please refer .env.example)
+- PHP 8.1
+
 ## Made out of Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.

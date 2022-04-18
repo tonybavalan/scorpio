@@ -14,7 +14,7 @@ use App\Http\Requests\StoreCustomerRequest;
 class CustomerController extends Controller
 {
     /**
-     * Display a listing of the customer resource.
+     * Display a listing of all the customers resource.
      *
      * @return \Illuminate\Http\Response
      * @group User Endpoints
@@ -96,7 +96,7 @@ class CustomerController extends Controller
         auth('customer')->user()->currentAccessToken()->delete();
 
         return response([
-            'message' => 'Customer logged out'
+            'message' => 'Customer logged out successfully'
         ]);
     }
 

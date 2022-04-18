@@ -2,59 +2,74 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the user resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return User::all();
+        return UserResource::collection(User::all());
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created user resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreUserRequest  $request
      * @return \Illuminate\Http\Response
+     * @group User Endpoints
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $user = User::create([
+            'name' => $request->name,
+            'uid' => $this->createUid(),
+            'phone_no' => $request->phone_no,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        $response = [
+            'message' => "user created successfully",
+            'user' => new UserResource($user),
+        ];
+
+        return response($response, 201);
     }
 
      /**
-     * Login using resource & credentials.
+     * Login using user resource & credentials.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\LoginUserRequest  $request
      * @return \Illuminate\Http\Response
+     * @group User Endpoints
      */
-    public function login(Request $request)
+    public function login(LoginUserRequest $request)
     {
-        $fields = $request->validate([
-            'email' => 'required|string',
-            'password' => 'required|string',
-        ]);
-
         // Check Email
-        $user = User::where('email', $fields['email'])->first();
+        $user = User::where('email', $request->email)->first();
         
         // Check Password
-        if(!$user || !Hash::check($fields['password'], $user->password)) {
+        if(!$user || !Hash::check($request->password, $user->password)) {
             return response([
-                'message' => 'Bad creds',
+                'message' => 'Bad credentials',
             ], 401);
         }
         
-        $token = $user->createToken('myapptoken')->plainTextToken;
+        $token = $user->createToken($user->name)->plainTextToken;
 
         $response = [
-            'user' => $user,
+            'user' => new UserResource($user),
             'token' => $token,
         ];
 
@@ -62,17 +77,19 @@ class UserController extends Controller
     }
 
     /**
-     * Logout using credentials.
+     * Logout using user credentials.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * @group User Endpoints
+     * @authenticated
      */
     public function logout(Request $request)
     {
-        auth()->customer()->tokens()->delete();
+        auth()->user()->currentAccessToken()->delete();
 
         return response([
-            'message' => 'Logged out'
+            'message' => 'User logged out successfully'
         ]);
     }
 

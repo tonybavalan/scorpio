@@ -46,6 +46,7 @@ class StoreUserRequest extends FormRequest
             ],
             'password' => [
                 'description' => 'Password for the user',
+                'example' => 'secret'
             ],
             'password_confimation' => [
                 'description' => 'Repeat password for the user',

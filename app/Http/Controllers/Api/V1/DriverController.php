@@ -14,7 +14,7 @@ use App\Http\Controllers\Api\MapController;
 class DriverController extends Controller
 {
     /**
-     * Display a listing of the Driver resource.
+     * Display a listing of all the drivers resource.
      *
      * @return \Illuminate\Http\Response
      * @group User Endpoints
