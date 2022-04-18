@@ -12,18 +12,22 @@ Scorpio is a web application with expressive, elegant and simple project that he
 
 Scorpio is accessible, powerful, and provides tools required for large, robust applications.
 
+## Prerequisites
+
+- PHP 8.1
+- Composer
+- TomTom Maps APIKEY (Include it in .env file. Please refer .env.example file)
+
 ## Developer Documentation
 
-People can start testing the API's of scorpio by adding the /docs URI in their browser. The API documentations were created using [Scribe](https://github.com/knuckleswtf/scribe) by [Knuckles](https://github.com/knuckleswtf).
+People can start testing the API's of scorpio by adding the /docs URI (ex: http://scorpio.test/docs) in their browser. The API documentations were created using [Scribe](https://github.com/knuckleswtf/scribe) by [Knuckles](https://github.com/knuckleswtf). Start generating the document by running the below command:
+ - composer install
+ - php artisan scribe:generate
+ - php artisan migrate 
 
 ## TomTom Maps
 
 It started with a simple idea: Make digital navigation accessible for everyone. Today, TomTom is the leading independent geolocation technology specialist. Our decades of driver insights go into everything we do – maps for automated driving, navigation software for top car brands, maps APIs for leading tech companies and traffic data for all. Checkout [TomTom Maps](https://www.tomtom.com/en_us/).
-
-## Prerequisites
-
-- TomTom Maps APIKEY (Include it in .env. Please refer .env.example)
-- PHP 8.1
 
 ## Made out of Laravel
 
