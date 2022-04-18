@@ -26,6 +26,7 @@ class TripController extends Controller
      * 
      * @param  \Illuminate\Http\Requests\StoreTripRequest  $request
      * @return \Illuminate\Http\Response
+     * @group User Endpoints
      * @authenticated
      */
     public function store(StoreTripRequest $request)
@@ -36,15 +37,15 @@ class TripController extends Controller
 
         $trip = Trip::create([
             'customer_id' => auth('customer')->user()->id,
-            'pickup' => $pickup['address'],
-            'source' => json_encode($pickup['position']),
-            'drop' => $drop['address'],
-            'destination' => json_encode($drop['position']),
+            'pickup' => $pickup->address,
+            'source' => $pickup->position,
+            'drop' => $drop->address,
+            'destination' => $drop->position,
         ]);
 
         $route = (new MapController())->routing(json_decode($trip->source), json_decode($trip->destination));
 
-        $trip->kilometers = $route['lengthInMeters']/1000;
+        $trip->kilometers = $route->lengthInMeters/1000;
 
         $trip->save();
 

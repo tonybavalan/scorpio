@@ -20,37 +20,51 @@ class MapController extends Controller
     /**
      * Make request to tomtom's geocoding API.
      * 
+     * @param mixed $query
+     * @return \Illuminate\Http\Response
      */
     public function geocoding($query)
     {        
         $results = Http::acceptJson()->get('https://api.tomtom.com/search/2/geocode/'.$query.'.json?storeResult=false&typeahead=true&countrySet=IN&view=IN&key='.$this->map_key)
-                    ['results'][0];
+                    ['results'];
 
-        $response['address'] = $results['address']['freeformAddress'];
+        $results = !empty($results) ? $results[0] : NULL;
 
-        $response['position'] = $results['position'];
+        if($results != NULL)
+        {
+            $response['address'] = $results['address']['freeformAddress'];
 
-        return $response;
+            $response['position'] = json_encode($results['position']);
+
+            return response()->json($response)->getData();
+        }
+
+        return $results;
     }
 
      /**
      * Make request to tomtom's structuredGeocoding API.
      * 
+     * @param mixed $query
+     * @return \Illuminate\Http\Response
      */
-    public function structGeocoding($query)
-    {
-        $results = Http::acceptJson()->get('https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=IN&municipality=uthangudi&municipalitySubdivision=Madurai&countrySecondarySubdivision=India&countrySubdivision=Tamilnadu&view=IN&key='.$this->map_key);
+    // public function structGeocoding($query)
+    // {
+    //     $results = Http::acceptJson()->get('https://api.tomtom.com/search/2/structuredGeocode.json?countryCode=IN&municipality=uthangudi&municipalitySubdivision=Madurai&countrySecondarySubdivision=India&countrySubdivision=Tamilnadu&view=IN&key='.$this->map_key);
 
-        $response['address'] = $results['address']['freeformAddress'];
+    //     $response['address'] = $results['address']['freeformAddress'];
 
-        $response['position'] = $results['position'];
+    //     $response['position'] = $results['position'];
 
-        return $response;
-    }
+    //     return response()->json($response);
+    // }
 
      /**
      * Make request to tomtom's routing API.
      * 
+     * @param mixed $pickup
+     * @param mixed $drop
+     * @return \Illuminate\Http\Response
      */
     public function routing($pickup, $drop)
     {
@@ -61,7 +75,7 @@ class MapController extends Controller
 
         $response['travelTimeInSeconds'] = $results['travelTimeInSeconds'];
 
-        return $response;
+        return response()->json($response)->getData();
     }
 
 }

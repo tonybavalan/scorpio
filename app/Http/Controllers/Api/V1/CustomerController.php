@@ -17,6 +17,8 @@ class CustomerController extends Controller
      * Display a listing of the customer resource.
      *
      * @return \Illuminate\Http\Response
+     * @group User Endpoints
+     * @authenticated
      */
     public function index()
     {
@@ -39,8 +41,8 @@ class CustomerController extends Controller
             'uid' => $this->createUid(),
             'email' => $request->email,
             'phone_no' => $request->phone_no,
-            'location' => $mapCode['address'],
-            'latlng' => json_encode($mapCode['position']),
+            'location' => $mapCode->address,
+            'latlng' => $mapCode->position,
             'password' => bcrypt($request->password),
         ]);
 

@@ -23,7 +23,7 @@ Route::apiResource('driver', DriverController::class)->only(['index', 'store']);
 
 Route::get('geocode/{query}', [MapController::class, 'geocoding']);
 
-Route::get('structgeocode/{query}', [MapController::class, 'structGeocoding']);
+// Route::get('structgeocode/{query}', [MapController::class, 'structGeocoding']);
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {

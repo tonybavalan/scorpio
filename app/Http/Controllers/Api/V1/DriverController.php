@@ -17,7 +17,8 @@ class DriverController extends Controller
      * Display a listing of the Driver resource.
      *
      * @return \Illuminate\Http\Response
-     * @group Driver Endpoints
+     * @group User Endpoints
+     * @authenticated
      */
     public function index()
     {
@@ -40,8 +41,8 @@ class DriverController extends Controller
             'uid' => $this->createUid(),
             'email' => $request->email,
             'phone_no' => $request->phone_no,
-            'location' => $mapCode['address'],
-            'latlng' => json_encode($mapCode['position']),
+            'location' => $mapCode->address,
+            'latlng' => $mapCode->position,
             'password' => bcrypt($request->password),
         ]);
 
@@ -92,7 +93,7 @@ class DriverController extends Controller
      */
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        auth('driver')->user()->currentAccessToken()->delete();
 
         return response([
             'message' => 'Driver logged out'
