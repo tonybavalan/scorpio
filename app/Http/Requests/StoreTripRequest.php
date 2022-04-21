@@ -24,6 +24,7 @@ class StoreTripRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'sometimes',
             'pickup' => 'required|string',
             'drop' => 'required|string',
         ];

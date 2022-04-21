@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Trip;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TripResource;
@@ -18,7 +19,7 @@ class TripController extends Controller
      */
     public function index()
     {
-        //
+        return TripResource::collection(Trip::all());
     }
 
     /**
@@ -31,12 +32,24 @@ class TripController extends Controller
      */
     public function store(StoreTripRequest $request)
     {
+        if($request->is('customer/trip'))
+        {
+            $customer = auth('customer')->user();
+            $is_user = '0';
+            $creater = $customer->id;
+        }
+        else{
+            $customer = Customer::find($request->customer_id);
+            $is_user = '1';
+            $creater = auth()->user()->id;
+        }
+
         $pickup = (new MapController())->geocoding($request->pickup);
 
         $drop = (new MapController())->geocoding($request->drop);
 
         $trip = Trip::create([
-            'customer_id' => auth('customer')->user()->id,
+            'customer_id' => $customer->id,
             'pickup' => $pickup->address,
             'source' => $pickup->position,
             'drop' => $drop->address,
@@ -46,6 +59,12 @@ class TripController extends Controller
         $route = (new MapController())->routing(json_decode($trip->source), json_decode($trip->destination));
 
         $trip->kilometers = $route->lengthInMeters/1000;
+
+        $trip->is_user = $is_user;
+
+        $trip->created_by = $creater;
+
+        $trip->updated_by = $creater;
 
         $trip->save();
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Waypoints;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -69,11 +70,19 @@ class MapController extends Controller
     public function routing($pickup, $drop)
     {
         $results = Http::acceptJson()->get('https://api.tomtom.com/routing/1/calculateRoute/'.$pickup->lat.','.$pickup->lon.':'.$drop->lat.','.$drop->lon.'/json?key='.$this->map_key)
-                    ['routes'][0]['summary'];;
+                    ['routes'];
 
-        $response['lengthInMeters'] = $results['lengthInMeters'];
+        $results = !empty($results) ? $results[0] : NULL;
 
-        $response['travelTimeInSeconds'] = $results['travelTimeInSeconds'];
+        if($results != NULL)
+        {
+            $response['lengthInMeters'] = $results['summary']['lengthInMeters'];
+
+            $response['travelTimeInSeconds'] = $results['summary']['travelTimeInSeconds'];
+
+            Waypoints::create(['route' => json_encode($results['legs'][0]['points'])]);
+
+        }
 
         return response()->json($response)->getData();
     }
