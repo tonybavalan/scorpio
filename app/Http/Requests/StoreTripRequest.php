@@ -24,7 +24,7 @@ class StoreTripRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'sometimes',
+            'customer_id' => 'required|integer',
             'pickup' => 'required|string',
             'drop' => 'required|string',
         ];
@@ -38,6 +38,9 @@ class StoreTripRequest extends FormRequest
     public function bodyParameters()
     {
         return [
+            'customer_id' =>[
+                'description' => 'id of the customer for whom the booking has to be created',
+            ],
             'pickup' => [
                 'description' => 'Pickup address with state & country of the customer',
                 'example' => 'Chennai, India'

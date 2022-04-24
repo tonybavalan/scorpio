@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('drop');
             $table->json('destination');
             $table->float('kilometers')->nullable();
-            $table->enum('is_user', ['0','1']);
+            $table->enum('is_admin', [0,1]);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->timestamps();

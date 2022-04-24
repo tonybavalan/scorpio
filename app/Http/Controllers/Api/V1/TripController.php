@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Trip;
 use App\Models\Customer;
+use App\Models\Waypoints;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TripResource;
@@ -27,21 +28,21 @@ class TripController extends Controller
      * 
      * @param  \Illuminate\Http\Requests\StoreTripRequest  $request
      * @return \Illuminate\Http\Response
-     * @group Customer Endpoints
+     * @group Trip Endpoints
      * @authenticated
      */
     public function store(StoreTripRequest $request)
     {
-        if($request->is('customer/trip'))
-        {
-            $customer = auth('customer')->user();
-            $is_user = '0';
-            $creater = $customer->id;
-        }
-        else{
-            $customer = Customer::find($request->customer_id);
-            $is_user = '1';
-            $creater = auth()->user()->id;
+        $model = \Laravel\Sanctum\PersonalAccessToken::findToken($request->bearerToken());
+
+        if($model->tokenable_type === "App\Models\Customer"){
+            $customer = Customer::findOrFail($request->customer_id);
+            $is_admin = '0';
+            $creater = $request->customer_id;
+        }elseif($model->tokenable_type === "App\Models\User"){
+            $customer = Customer::findOrFail($request->customer_id);
+            $is_admin = '1';
+            $creater = $model->tokenable->id;
         }
 
         $pickup = (new MapController())->geocoding($request->pickup);
@@ -54,19 +55,18 @@ class TripController extends Controller
             'source' => $pickup->position,
             'drop' => $drop->address,
             'destination' => $drop->position,
+            'is_admin' => $is_admin,
+            'created_by' => $creater,
+            'updated_by' => $creater, 
         ]);
 
         $route = (new MapController())->routing(json_decode($trip->source), json_decode($trip->destination));
 
         $trip->kilometers = $route->lengthInMeters/1000;
 
-        $trip->is_user = $is_user;
-
-        $trip->created_by = $creater;
-
-        $trip->updated_by = $creater;
-
         $trip->save();
+
+        Waypoints::create(['trip_id' => $trip->id, 'route' => json_encode($route->route)]);
 
         $response = [
             'message' => 'trip created successfully',

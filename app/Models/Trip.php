@@ -12,6 +12,6 @@ class Trip extends Model
     protected $fillable = [
         'customer_id', 'pickup', 'source',
         'drop', 'destination', 'kilometers',
-        'is_user', 'created_by', 'updated_by',
+        'is_admin', 'created_by', 'updated_by',
     ];
 }

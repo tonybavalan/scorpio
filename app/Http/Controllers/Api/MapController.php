@@ -80,8 +80,7 @@ class MapController extends Controller
 
             $response['travelTimeInSeconds'] = $results['summary']['travelTimeInSeconds'];
 
-            Waypoints::create(['route' => json_encode($results['legs'][0]['points'])]);
-
+            $response['route'] = $results['legs'][0]['points'];
         }
 
         return response()->json($response)->getData();

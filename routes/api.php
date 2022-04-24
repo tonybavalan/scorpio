@@ -34,9 +34,9 @@ Route::get('geocode/{query}', [MapController::class, 'geocoding']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('trips', [TripController::class, 'index']);
-
+    Route::post('trip', [TripController::class, 'store']);
+    
     Route::prefix('customer')->group(function () {
-        Route::post('trip', [TripController::class, 'store']);
         Route::get('logout', [CustomerController::class, 'logout']);
     });
 
@@ -45,7 +45,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::prefix('user')->group(function () {
-        Route::post('trip', [TripController::class, 'store']);
         Route::get('logout', [UserController::class, 'logout']);
     });
 

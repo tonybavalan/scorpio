@@ -19,7 +19,7 @@ class TripResource extends JsonResource
             'pickup' => $this->pickup,
             'drop' => $this->drop,
             'kilometers' => $this->kilometers,
-            'created_by' =>,
+            'created_by' => $this->created_by
         ];
     }
 }
