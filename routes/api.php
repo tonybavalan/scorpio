@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('trips', [TripController::class, 'index']);
     Route::post('trip', [TripController::class, 'store']);
-    
+
     Route::prefix('customer')->group(function () {
         Route::get('logout', [CustomerController::class, 'logout']);
     });
@@ -46,9 +46,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::prefix('user')->group(function () {
         Route::get('logout', [UserController::class, 'logout']);
+        Route::apiResource('customer', CustomerController::class)->only(['show', 'destroy']);
+        Route::apiResource('driver', DriverController::class)->only(['show', 'destroy']);       
     });
-
-    // Route::apiResource('customer', CustomerController::class)->only(['show', 'destroy']);
-
-    // Route::apiResource('driver', DriverController::class)->only(['show', 'destroy']);
 });
