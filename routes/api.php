@@ -14,15 +14,15 @@ use App\Http\Controllers\Api\V1\UserController;
 */
 
 // Public Routes
-Route::post('customer/login', [CustomerController::class,'login']);
+Route::post('customer/login', [CustomerController::class, 'login']);
 
-Route::post('driver/login', [DriverController::class,'login']);
+Route::post('driver/login', [DriverController::class, 'login']);
 
 Route::post('user/login', [UserController::class, 'login']);
 
-Route::apiResource('customer', CustomerController::class)->only(['index', 'store']);
+Route::post('customer', [CustomerController::class, 'store']);
 
-Route::apiResource('driver', DriverController::class)->only(['index', 'store']);
+Route::post('driver', [DriverController::class, 'store']);
 
 Route::apiResource('user', UserController::class)->only(['index', 'store']);
 
@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::prefix('user')->group(function () {
         Route::get('logout', [UserController::class, 'logout']);
-        Route::apiResource('customer', CustomerController::class)->only(['show', 'destroy']);
-        Route::apiResource('driver', DriverController::class)->only(['show', 'destroy']);       
+        Route::apiResource('customer', CustomerController::class);
+        Route::apiResource('driver', DriverController::class);
     });
 });
