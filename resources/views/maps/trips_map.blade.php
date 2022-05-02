@@ -5,12 +5,8 @@
 @pushOnce('styles')
 <link rel='stylesheet' type='text/css' href='css/map.css'>
 <style>
-    html {
-        height: 100%;
-    }
-
     .map {
-        height: 98vh;
+        height: 85vh;
         border: 1px solid black
     }
 </style>
@@ -28,7 +24,7 @@
     const APPLICATION_NAME = 'scorpio';
     const APPLICATION_VERSION = '1.0';
 
-    console.log(APPLICATION_NAME, APPLICATION_VERSION); 
+    console.log(APPLICATION_NAME, APPLICATION_VERSION);
 
     tt.setProductInfo(APPLICATION_NAME, APPLICATION_VERSION);
 
@@ -68,14 +64,18 @@
         attributionControlPosition: 'bottom-left',
     });
 
-    passengerMarker = createPassengerMarker(passengerInitCoordinates, new tt.Popup({ offset: 35 }).setHTML("Click anywhere on the map to change passenger location."));
+    passengerMarker = createPassengerMarker(passengerInitCoordinates, new tt.Popup({
+        offset: 35
+    }).setHTML("Click anywhere on the map to change passenger location."));
 
     passengerMarker.togglePopup();
 
     function createPassengerMarker(markerCoordinates, popup) {
         const passengerMarkerElement = document.createElement('div');
         passengerMarkerElement.innerHTML = "<img src='img/taxi_passanger.png' style='width: 30px; height: 30px';>";
-        return new tt.Marker({ element: passengerMarkerElement }).setLngLat(markerCoordinates).setPopup(popup).addTo(map);
+        return new tt.Marker({
+            element: passengerMarkerElement
+        }).setLngLat(markerCoordinates).setPopup(popup).addTo(map);
     }
 
     map.addControl(new tt.FullscreenControl());

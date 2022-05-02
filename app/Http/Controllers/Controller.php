@@ -17,7 +17,7 @@ class Controller extends BaseController
      * Create a new unique identifier.
      * 
      */
-    public function createUid()
+    public static function createUid()
     {
         $uid = Str::random(8);
 

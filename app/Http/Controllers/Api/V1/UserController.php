@@ -31,20 +31,28 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $validated = $request->validated();
+        
         $user = User::create([
-            'name' => $request->name,
+            'name' => $validated->name,
             'uid' => $this->createUid(),
-            'phone_no' => $request->phone_no,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'phone_no' => $validated->phone_no,
+            'email' => $validated->email,
+            'password' => Hash::make($validated->password),
         ]);
 
-        $response = [
-            'message' => "user created successfully",
-            'user' => new UserResource($user),
-        ];
+        if(request()->is('api/*')){
+            $response = [
+                'message' => "user created successfully",
+                'user' => new UserResource($user),
+            ];
+    
+            return response($response, 201);
+        }
 
-        return response($response, 201);
+        auth()->attempt($validated->only('email','password'));
+
+        return view('dashboard');
     }
 
      /**
@@ -56,24 +64,36 @@ class UserController extends Controller
      */
     public function login(LoginUserRequest $request)
     {
-        // Check Email
-        $user = User::where('email', $request->email)->first();
+        $validated = $request->validated();
         
-        // Check Password
-        if(!$user || !Hash::check($request->password, $user->password)) {
-            return response([
-                'message' => 'Bad credentials',
-            ], 401);
+        if(request()->is('api/*')):
+
+            // Check Email
+            $user = User::where('email', $validated->email)->first();
+
+            // Check Password
+            if(!$user || !Hash::check($validated->password, $user->password)) {
+                return response([
+                    'message' => 'Invalid Login Details',
+                ], 401);
+            }
+
+            $token = $user->createToken($user->name)->plainTextToken;
+
+            $response = [
+                'user' => new UserResource($user),
+                'token' => $token,
+            ];
+
+            return response($response, 201);    
+
+        endif;
+
+        if(!auth()->attempt($request->only('email', 'password'), $request->remember)){
+            return back()->with('status', "Invalid Login Details");
         }
         
-        $token = $user->createToken($user->name)->plainTextToken;
-
-        $response = [
-            'user' => new UserResource($user),
-            'token' => $token,
-        ];
-
-        return response($response, 201);
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -86,11 +106,19 @@ class UserController extends Controller
      */
     public function logout(Request $request)
     {
-        auth()->user()->currentAccessToken()->delete();
+        if(request()->is('api/*')):
 
-        return response([
-            'message' => 'User logged out successfully'
-        ]);
+            auth('user')->user()->currentAccessToken()->delete();
+
+            return response([
+                'message' => 'User logged out successfully'
+            ]);
+
+        endif;
+
+        auth()->logout();
+
+        return redirect()->route('login');
     }
 
     /**

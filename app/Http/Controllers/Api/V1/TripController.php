@@ -45,9 +45,9 @@ class TripController extends Controller
             $creater = $model->tokenable->id;
         }
 
-        $pickup = (new MapController())->geocoding($request->pickup);
+        $pickup = MapController::geocoding($request->pickup);
 
-        $drop = (new MapController())->geocoding($request->drop);
+        $drop = MapController::geocoding($request->drop);
 
         $trip = Trip::create([
             'customer_id' => $customer->id,
@@ -60,7 +60,7 @@ class TripController extends Controller
             'updated_by' => $creater, 
         ]);
 
-        $route = (new MapController())->routing(json_decode($trip->source), json_decode($trip->destination));
+        $route = MapController::routing(json_decode($trip->source), json_decode($trip->destination));
 
         $trip->kilometers = $route->lengthInMeters/1000;
 

@@ -24,7 +24,7 @@ class MapController extends Controller
      * @param mixed $query
      * @return \Illuminate\Http\Response
      */
-    public function geocoding($query)
+    public static function geocoding($query)
     {        
         $results = Http::acceptJson()->get('https://api.tomtom.com/search/2/geocode/'.$query.'.json?storeResult=false&typeahead=true&countrySet=IN&view=IN&key='.$this->map_key)
                     ['results'];
@@ -67,7 +67,7 @@ class MapController extends Controller
      * @param mixed $drop
      * @return \Illuminate\Http\Response
      */
-    public function routing($pickup, $drop)
+    public static function routing($pickup, $drop)
     {
         $results = Http::acceptJson()->get('https://api.tomtom.com/routing/1/calculateRoute/'.$pickup->lat.','.$pickup->lon.':'.$drop->lat.','.$drop->lon.'/json?key='.$this->map_key)
                     ['routes'];

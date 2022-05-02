@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,19 +15,25 @@ Route::get('/', function () {
 
 Route::get('login', function () {
     return view('users.login');
-});
+})
+->name('login');
 
 Route::post('login', [UserController::class, 'login']);
 
 Route::get('register', function () {
     return view('users.register');
-});
+})
+->name('register');
 
 Route::post('register', [UserController::class, 'store']);
 
-Route::get('logout', function () {
-    return response(404);
-});
+Route::post('logout', [UserController::class, 'logout'])->name('logout');
+
+Route::get('dashboard', function () {
+    return view('dashboard');
+})
+->name('dashboard')
+->middleware('auth');
 
 Route::get('maps', function () {
     return view('maps.trips_map');

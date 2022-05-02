@@ -34,7 +34,7 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        $mapCode = (new MapController())->geocoding($request->location);
+        $mapCode = MapController::geocoding($request->location);
 
         $customer = Customer::create([
             'name' => $request->name,
