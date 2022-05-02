@@ -11,10 +11,11 @@
     },
     "devDependencies": {
         "@tomtom-international/web-sdk-maps": "^6.18.0",
+        "autoprefixer": "^10.4.6",
         "axios": "^0.25",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
-    },
-    "dependencies": {}
+        "postcss": "^8.4.13",
+        "tailwindcss": "^3.0.24"
+    }
 }
