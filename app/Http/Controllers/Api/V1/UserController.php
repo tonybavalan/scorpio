@@ -19,7 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::all());
+        if(request()->is('api/*')){
+            return UserResource::collection(User::all());
+        }
     }
 
     /**
@@ -34,11 +36,11 @@ class UserController extends Controller
         $validated = $request->validated();
         
         $user = User::create([
-            'name' => $validated->name,
+            'name' => $validated['name'],
             'uid' => $this->createUid(),
-            'phone_no' => $validated->phone_no,
-            'email' => $validated->email,
-            'password' => Hash::make($validated->password),
+            'phone_no' => $validated['phone_no'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
         ]);
 
         if(request()->is('api/*')){
@@ -50,7 +52,7 @@ class UserController extends Controller
             return response($response, 201);
         }
 
-        auth()->attempt($validated->only('email','password'));
+        auth()->attempt($request->only('email','password'));
 
         return view('dashboard');
     }
@@ -69,10 +71,10 @@ class UserController extends Controller
         if(request()->is('api/*')):
 
             // Check Email
-            $user = User::where('email', $validated->email)->first();
+            $user = User::where('email', $validated['email'])->first();
 
             // Check Password
-            if(!$user || !Hash::check($validated->password, $user->password)) {
+            if(!$user || !Hash::check($validated['password'], $user->password)) {
                 return response([
                     'message' => 'Invalid Login Details',
                 ], 401);

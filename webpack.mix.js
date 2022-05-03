@@ -11,9 +11,16 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/map.js', 'public/js').sourceMaps()
+mix.js('resources/js/app.js', 'public/js').js('resources/js/map.js', 'public/js').sourceMaps()
     .postCss('resources/css/map.css', 'public/css')
     .postCss('resources/css/app.css', 'public/css', [
-        require("tailwindcss"),
-    ]);
+        require('postcss-import'),
+        require('tailwindcss'),
+        require('autoprefixer'),
+]);
+
+mix.webpackConfig({
+    stats: {
+         children: true
+    }
+});
