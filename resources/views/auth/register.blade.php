@@ -26,6 +26,13 @@
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
+            <!-- Contact -->
+            <div class="mt-4">
+                <x-label for="phone_no" :value="__('Contact')" />
+
+                <x-input id="phone_no" class="block mt-1 w-full" type="number" name="phone_no" :value="old('phone_no')" required />
+            </div>
+
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
