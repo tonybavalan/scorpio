@@ -22,7 +22,11 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return CustomerResource::collection(Customer::all());
+        if(request()->is('api/*')){
+            return CustomerResource::collection(Customer::all());
+        }
+
+        return view('customers.index');
     }
 
     /**
@@ -34,7 +38,7 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        $mapCode = (new MapController())->geocoding($request->location);
+        $mapCode = MapController::geocoding($request->location);
 
         $customer = Customer::create([
             'name' => $request->name,

@@ -34,7 +34,7 @@ class DriverController extends Controller
      */
     public function store(StoreDriverRequest $request)
     {
-        $mapCode = (new MapController())->geocoding($request->location);
+        $mapCode = MapController::geocoding($request->location);
         
         $driver = Driver::create([
             'name' => $request->name,
