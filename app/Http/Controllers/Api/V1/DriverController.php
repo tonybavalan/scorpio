@@ -32,7 +32,7 @@ class DriverController extends Controller
      * @return \Illuminate\Http\Response
      * @group Driver Endpoints
      */
-    public function store(StoreDriverRequest $request)
+    public function store(StoreDriverRequest $request): ?object
     {
         $mapCode = MapController::geocoding($request->location);
         
@@ -41,8 +41,8 @@ class DriverController extends Controller
             'uid' => $this->createUid(),
             'email' => $request->email,
             'phone_no' => $request->phone_no,
-            'location' => $mapCode->address,
-            'latlng' => $mapCode->position,
+            'location' => $mapCode->address ?? null,
+            'latlng' => $mapCode->position ?? null,
             'password' => bcrypt($request->password),
         ]);
 
@@ -61,7 +61,7 @@ class DriverController extends Controller
      * @return \Illuminate\Http\Response
      * @group Driver Endpoints
      */
-    public function login(LoginUserRequest $request)
+    public function login(LoginUserRequest $request): ?object
     {
         // Check Email
         $driver = Driver::where('email', $request->email)->first();
@@ -91,7 +91,7 @@ class DriverController extends Controller
      * @group Driver Endpoints
      * @authenticated
      */
-    public function logout(Request $request)
+    public function logout(): ?object
     {
         auth('driver')->user()->currentAccessToken()->delete();
 

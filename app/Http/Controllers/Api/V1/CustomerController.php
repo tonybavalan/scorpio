@@ -22,7 +22,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        if(request()->is('api/*')){
+        if (request()->is('api/*')) {
             return CustomerResource::collection(Customer::all());
         }
 
@@ -36,7 +36,7 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      * @group Customer Endpoints
      */
-    public function store(StoreCustomerRequest $request)
+    public function store(StoreCustomerRequest $request): ?object
     {
         $mapCode = MapController::geocoding($request->location);
 
@@ -45,8 +45,8 @@ class CustomerController extends Controller
             'uid' => $this->createUid(),
             'email' => $request->email,
             'phone_no' => $request->phone_no,
-            'location' => $mapCode->address,
-            'latlng' => $mapCode->position,
+            'location' => $mapCode->address ?? null,
+            'latlng' => $mapCode->position ?? null,
             'password' => bcrypt($request->password),
         ]);
 
@@ -69,14 +69,14 @@ class CustomerController extends Controller
     {
         // Check Email
         $customer = Customer::where('email', $request->email)->first();
-        
+
         // Check Password
-        if(!$customer || !Hash::check($request->password, $customer->password)) {
+        if (!$customer || !Hash::check($request->password, $customer->password)) {
             return response([
                 'message' => 'Bad Credentials',
             ], 401);
         }
-        
+
         $token = $customer->createToken($customer->name)->plainTextToken;
 
         $response = [
@@ -90,18 +90,25 @@ class CustomerController extends Controller
     /**
      * Logout as customer resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      * @group Customer Endpoints
      * @authenticated
      */
-    public function logout(Request $request)
+    public function logout(): ?object
     {
-        auth('customer')->user()->currentAccessToken()->delete();
+        $user = auth('customer')->user();
 
-        return response([
-            'message' => 'Customer logged out successfully'
-        ]);
+        if ($user) {
+            $user->currentAccessToken()->delete();
+
+            return response([
+                'message' => 'Customer logged out successfully'
+            ]);
+        } else {
+            return response([
+                'message' => 'Customer not authenticated'
+            ], 401);
+        }
     }
 
     /**

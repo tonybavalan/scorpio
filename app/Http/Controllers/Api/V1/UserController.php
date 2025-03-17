@@ -64,7 +64,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      * @group User Endpoints
      */
-    public function login(LoginUserRequest $request)
+    public function login(LoginUserRequest $request): ?object
     {
         $validated = $request->validated();
         
@@ -106,7 +106,7 @@ class UserController extends Controller
      * @group User Endpoints
      * @authenticated
      */
-    public function logout(Request $request)
+    public function logout()
     {
         if(request()->is('api/*')):
 

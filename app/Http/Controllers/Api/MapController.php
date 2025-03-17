@@ -12,11 +12,8 @@ class MapController extends Controller
     /**
      * Constructor for MapController.
      * 
-     */   
-    public function __construct()
-    {
-        $this->map_key = env('MAP_KEY');
-    }
+     */
+    public function __construct() {}
 
     /**
      * Make request to tomtom's geocoding API.
@@ -24,26 +21,35 @@ class MapController extends Controller
      * @param mixed $query
      * @return \Illuminate\Http\Response
      */
-    public static function geocoding($query)
-    {        
-        $results = Http::acceptJson()->get('https://api.tomtom.com/search/2/geocode/'.$query.'.json?storeResult=false&typeahead=true&countrySet=IN&view=IN&key='.$this->map_key)
-                    ['results'];
+    public static function geocoding(string $query): ?object
+    {
+        try {
+            $mapKey = env('MAP_KEY');
 
-        $results = !empty($results) ? $results[0] : NULL;
+            $response = Http::acceptJson()->get('https://api.tomtom.com/search/2/geocode/' . $query . '.json?storeResult=false&typeahead=true&countrySet=IN&view=IN&key=' . $mapKey);
 
-        if($results != NULL)
-        {
-            $response['address'] = $results['address']['freeformAddress'];
+            if ($response->successful()) {
+                $results = $response->json()['results'] ?? null;
+                $result = !empty($results) ? $results[0] : null;
 
-            $response['position'] = json_encode($results['position']);
+                if ($result !== null && isset($result['address']['freeformAddress'], $result['position'])) {
+                    $response = [
+                        'address' => $result['address']['freeformAddress'],
+                        'position' => json_encode($result['position']),
+                    ];
 
-            return response()->json($response)->getData();
+                    return (object) $response;
+                }
+            }
+
+            return null;
+        } catch (\Exception $e) {
+            error_log('Geocoding error: ' . $e->getMessage());
+            return null;
         }
-
-        return $results;
     }
 
-     /**
+    /**
      * Make request to tomtom's structuredGeocoding API.
      * 
      * @param mixed $query
@@ -60,7 +66,7 @@ class MapController extends Controller
     //     return response()->json($response);
     // }
 
-     /**
+    /**
      * Make request to tomtom's routing API.
      * 
      * @param mixed $pickup
@@ -69,21 +75,25 @@ class MapController extends Controller
      */
     public static function routing($pickup, $drop)
     {
-        $results = Http::acceptJson()->get('https://api.tomtom.com/routing/1/calculateRoute/'.$pickup->lat.','.$pickup->lon.':'.$drop->lat.','.$drop->lon.'/json?key='.$this->map_key)
-                    ['routes'];
+        try {
+            $mapKey = env('MAP_KEY');
 
-        $results = !empty($results) ? $results[0] : NULL;
+            $results = Http::acceptJson()->get('https://api.tomtom.com/routing/1/calculateRoute/' . $pickup->lat . ',' . $pickup->lon . ':' . $drop->lat . ',' . $drop->lon . '/json?key=' . $mapKey)['routes'];
 
-        if($results != NULL)
-        {
-            $response['lengthInMeters'] = $results['summary']['lengthInMeters'];
+            $results = !empty($results) ? $results[0] : null;
 
-            $response['travelTimeInSeconds'] = $results['summary']['travelTimeInSeconds'];
+            if ($results != null) {
+                $response['lengthInMeters'] = $results['summary']['lengthInMeters'];
 
-            $response['route'] = $results['legs'][0]['points'];
+                $response['travelTimeInSeconds'] = $results['summary']['travelTimeInSeconds'];
+
+                $response['route'] = $results['legs'][0]['points'];
+            }
+
+            return response()->json($response)->getData();
+        } catch (\Exception $e) {
+            error_log('Geocoding error: ' . $e->getMessage());
+            return null;
         }
-
-        return response()->json($response)->getData();
     }
-
 }
