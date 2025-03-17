@@ -22,8 +22,11 @@ Scorpio is accessible, powerful, and provides tools required for large, robust a
 
 People can start testing the API's of scorpio by adding the /docs URI (ex: http://scorpio.test/docs) in their browser. The API documentations were created using [Scribe](https://github.com/knuckleswtf/scribe) by [Knuckles](https://github.com/knuckleswtf). Start generating the document by running the below command:
  - composer install
- - php artisan scribe:generate
+ - php artisan key:generate
  - php artisan migrate 
+ - php artisan scribe:generate
+
+ The API documentation will be available in the route {APP_URL}/docs
 
 ## TomTom Maps
 
@@ -37,7 +40,7 @@ If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Lar
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Scorpio, please send an e-mail to Tony Bavalan via [tonybavalan@projectscorpio.ml](mailto:tonybavalan@projectscorpio.ml). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within Scorpio, please send an e-mail to Tony Bavalan via [tonybavalan.a@gmail.com](mailto:tonybavalan@projectscorpio.ml). All security vulnerabilities will be promptly addressed.
 
 ## License
 
